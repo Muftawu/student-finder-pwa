@@ -1,0 +1,37 @@
+@host = http://localhost:5052
+
+POST {{host}}/api/user/register
+Content-Type: application/json
+
+{
+    "FirstName": "Roman",
+    "LastName": "King",
+    "Email": "roman@gmail.com",
+    "Password": "Muftawu@2024"
+}
+
+###
+POST {{host}}/api/user/login
+Content-Type: application/json
+
+{
+    "Email": "roman@gmail.com",
+    "Password": "Muftawu@2024"
+}
+
+###
+GET {{host}}/api/user/all-users
+
+###
+GET {{host}}/api/user/by-name/g
+
+###
+GET {{host}}/api/user/by-id/02226c21-5425-4749-b334-de4e171962a0
+
+###
+POST {{host}}/api/user/register/
+Content-Type: application/application/json
+
+{
+    
+}

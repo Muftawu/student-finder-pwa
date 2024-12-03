@@ -1,0 +1,15 @@
+/home/muftawu/iteratives/newproject/api.application/bin/Debug/net8.0/api.application.deps.json
+/home/muftawu/iteratives/newproject/api.application/bin/Debug/net8.0/api.application.dll
+/home/muftawu/iteratives/newproject/api.application/bin/Debug/net8.0/api.application.pdb
+/home/muftawu/iteratives/newproject/api.application/bin/Debug/net8.0/api.domain.dll
+/home/muftawu/iteratives/newproject/api.application/bin/Debug/net8.0/api.domain.pdb
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.application.csproj.AssemblyReference.cache
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.application.GeneratedMSBuildEditorConfig.editorconfig
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.application.AssemblyInfoInputs.cache
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.application.AssemblyInfo.cs
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.application.csproj.CoreCompileInputs.cache
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.appl.2F672BB9.Up2Date
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.application.dll
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/refint/api.application.dll
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/api.application.pdb
+/home/muftawu/iteratives/newproject/api.application/obj/Debug/net8.0/ref/api.application.dll

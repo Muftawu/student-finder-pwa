@@ -1,0 +1,15 @@
+@namespace ui.Components
+
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+    @if (!string.IsNullOrEmpty(Message))
+    {
+        <div class="alert alert-@AlertType" role="alert">
+            @Message
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public string? AlertType { get; set; } = "info";
+}

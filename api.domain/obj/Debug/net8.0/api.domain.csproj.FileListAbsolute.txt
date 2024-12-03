@@ -1,0 +1,12 @@
+/home/muftawu/iteratives/newproject/api.domain/bin/Debug/net8.0/api.domain.deps.json
+/home/muftawu/iteratives/newproject/api.domain/bin/Debug/net8.0/api.domain.dll
+/home/muftawu/iteratives/newproject/api.domain/bin/Debug/net8.0/api.domain.pdb
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/api.domain.csproj.AssemblyReference.cache
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/api.domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/api.domain.AssemblyInfoInputs.cache
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/api.domain.AssemblyInfo.cs
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/api.domain.csproj.CoreCompileInputs.cache
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/api.domain.dll
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/refint/api.domain.dll
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/api.domain.pdb
+/home/muftawu/iteratives/newproject/api.domain/obj/Debug/net8.0/ref/api.domain.dll

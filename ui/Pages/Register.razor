@@ -1,0 +1,131 @@
+@page "/register"
+
+@using System.Text
+@using System.Text.Json
+@using Blazored.LocalStorage
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService LocalStorage
+@inject CustomAuthenticationStateProvider CustomAuthenticationStateProvider
+
+<PageTitle>Register</PageTitle>
+
+<h2 style="display: flex; justify-content: center; align-items: center;">Create an account with us today!</h2>
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+    <hr style="width: 50%;">
+</div>
+
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+
+    <div style="display: flex; flex-direction: column;">
+        <img style="width: 600px; height: 550px;" src="./media/sign-up.gif" />
+    </div>
+
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 50px;">
+
+        <Alert AlertType="@alertType" Message="@alertMessage"></Alert>
+
+        <div class="mb-3 row" style="width: 500px;">
+            <label for="firstName" class="col-sm-12 col-form-label">First Name</label>
+            <div class="col-sm-10">
+                <input type="text" @bind="user.FirstName" class="form-control" id="firstName">
+            </div>
+        </div>
+
+        <div class="mb-3 row" style="width: 500px;">
+            <label for="lastName" class="col-sm-12 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+                <input type="text" @bind="user.LastName" class="form-control" id="lastName">
+            </div>
+        </div>
+
+        <div class="mb-3 row" style="width: 500px;">
+            <label for="email" class="col-sm-12 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" @bind="user.Email" class="form-control" id="email">
+            </div>
+        </div>
+
+        <div class="mb-3 row" style="width: 500px;">
+            <label for="password" class="col-sm-12 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" @bind="user.Password" class="form-control" id="password1">
+            </div>
+        </div>
+
+        <div class="mb-3 row" style="width: 500px;">
+            <label for="password" class="col-sm-12 col-form-label">Confirm Password</label>
+            <div class="col-sm-10">
+                <input type="password" @bind="user.Password2" class="form-control" id="password2">
+            </div>
+        </div>
+
+        <div class="mb-3 row" style="width: 500px;">
+            <div class="col-sm-10">
+                <button style="width: 400px;" @onclick="HandleRegister" type="button" class="btn btn-success">Register</button>
+            </div>
+        </div>
+
+        <a href="/login">
+            <p>Already have an account? Click to Sign In</p>
+        </a>
+
+    </div>
+
+</div>
+
+@code {
+    private RegisterDTO user = new();
+
+    private string? alertType;
+    private string? alertMessage;
+
+    private async Task HandleRegister()
+    {
+        if (user.Password != user.Password2)
+        {
+            return;
+        }
+
+        var registerdto = new RegistrationDTO
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Password = user.Password,
+        };
+
+        try
+        {
+            var json = JsonSerializer.Serialize(registerdto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var apiResponse = await Http.PostAsync(UserEndpoints.RegisterURL, content);
+
+            if (apiResponse.IsSuccessStatusCode)
+            {
+                var response = await apiResponse.Content.ReadFromJsonAsync<ApiResponseDTO>();
+                if (response != null && response.Success)
+                {
+                    alertType = "success";
+                    alertMessage = $"{response.Message}";
+                    NavigationManager.NavigateTo("/login");
+                }
+            }
+            else
+            {
+                var errorContent = await apiResponse.Content.ReadAsStringAsync();
+                alertType = "danger";
+                alertMessage = $"{errorContent}";
+                NavigationManager.NavigateTo("/register");
+                Console.WriteLine($"Error in response ${JsonSerializer.Serialize(errorContent)}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error creating new user: {e.Message}");
+        }
+    }
+
+}

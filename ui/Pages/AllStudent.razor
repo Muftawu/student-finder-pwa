@@ -1,0 +1,81 @@
+﻿@page "/users"
+@inherits AuthenticatedComponentBase
+@attribute [Authorize]
+
+<PageTitle>All Students</PageTitle>
+
+<Alert Message="@AlertMessage" AlertType="@AlertType" />
+
+
+<h3 style="text-align: center; margin-bottom: 50px;">All Student Records</h3>
+
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+@if (apiResponse?.Users == null)
+{
+    <p><em>Loading...</em></p> <br>
+    <p><em>Please Navigate to this <a href="/add">Create New Student</a> page to add Students</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr> 
+                <th>UserId</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>Reference Number</th>
+                <th>Programme</th>
+                <th>UserRole</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+
+        <tbody>
+           @foreach (var user in apiResponse?.Users!)
+            {
+                <tr @onclick="() => NavigateToStudentInfo(user.Id)" style="cursor: pointer;">
+                    <td>@user.Id</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.ReferenceNumber</td>
+                    <td>@user.Programme</td>
+                    <td>@user.UserRole</td>
+                    <td>@user.DateCreated</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div style="padding-top: 20px;">
+        <a href="/add" class="btn btn-success" tabindex="-1" role="button">Add New Student</a>
+    </div>
+}
+</div>
+
+@code {
+    private ApiResponseDTO? apiResponse;
+    private string AlertMessage = "";
+    private string AlertType = "";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        
+        try
+        {
+            apiResponse = await Http.GetFromJsonAsync<ApiResponseDTO>(UserEndpoints.AllStudentsURL);
+            Console.WriteLine($"number of users => {apiResponse}");
+        }catch (Exception e)
+        {
+            Console.WriteLine($"error from server => {e.Message}");
+        }
+    }
+
+    private void NavigateToStudentInfo(string userId)
+    {
+        NavigationManager!.NavigateTo($"/student-info/{userId}");
+    }
+}

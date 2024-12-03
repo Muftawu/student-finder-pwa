@@ -1,0 +1,17 @@
+/home/muftawu/iteratives/newproject/api.infrastructure/bin/Debug/net8.0/api.infrastructure.deps.json
+/home/muftawu/iteratives/newproject/api.infrastructure/bin/Debug/net8.0/api.infrastructure.dll
+/home/muftawu/iteratives/newproject/api.infrastructure/bin/Debug/net8.0/api.infrastructure.pdb
+/home/muftawu/iteratives/newproject/api.infrastructure/bin/Debug/net8.0/api.application.dll
+/home/muftawu/iteratives/newproject/api.infrastructure/bin/Debug/net8.0/api.domain.dll
+/home/muftawu/iteratives/newproject/api.infrastructure/bin/Debug/net8.0/api.domain.pdb
+/home/muftawu/iteratives/newproject/api.infrastructure/bin/Debug/net8.0/api.application.pdb
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infrastructure.csproj.AssemblyReference.cache
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infrastructure.AssemblyInfoInputs.cache
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infrastructure.AssemblyInfo.cs
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infrastructure.csproj.CoreCompileInputs.cache
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infr.2BF52F88.Up2Date
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infrastructure.dll
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/refint/api.infrastructure.dll
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/api.infrastructure.pdb
+/home/muftawu/iteratives/newproject/api.infrastructure/obj/Debug/net8.0/ref/api.infrastructure.dll

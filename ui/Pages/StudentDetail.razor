@@ -1,0 +1,252 @@
+@page "/student-info/{id}"
+@attribute [Authorize]
+
+@inject NavigationManager NavigationManager
+
+<PageTitle>Student-Info</PageTitle>
+
+<Alert Message="@AlertMessage" AlertType="@AlertType" />
+
+@if (user != null)
+{
+    <h3 style="text-align: center;">@user.firstName @user.lastName</h3>
+    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+        <hr style="width: 50%;">
+    </div>
+}
+else
+{
+    <p></p>
+}
+
+<div style="display: flex; flex-direction: row; justify-content: center; align-items: center; padding-top: 50px;">
+
+    @if (user != null)
+    {
+        <div style="width: 20%; margin-right: 20px;">
+            <div class="card">
+                <img src="./media/profile.jpg" class="card-img-top" alt="...">
+            </div>
+        </div>
+
+        @* delete user *@
+        <div class="modal fade" id="deleteUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="deleteUserLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteUserLabel">Delete User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <b>"@user.firstName @user.lastName"</b>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" @onclick="onDeleteUser" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        @* update user *@
+        <div class="modal fade" id="updateUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="updateUserLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="updateUserLabel">Update User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="mb-3 row" style="width: 500px;">
+                            <label for="firstName" class="col-sm-12 col-form-label">First Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="@user.firstName" @bind="user.firstName" class="form-control" id="firstName">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row" style="width: 500px;">
+                            <label for="lastName" class="col-sm-12 col-form-label">Last Name</label>
+
+                     <label for="email" class="col-sm-12 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" placeholder="@user.email" @bind="user.email" class="form-control" id="email">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row" style="width: 500px;">
+                            <label for="programme" class="col-sm-12 col-form-label">Programme</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="@user.programme" @bind="user.programme" class="form-control" id="programme">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row" style="width: 500px;">
+                            <label for="userType" class="col-sm-12 col-form-label">User Role</label>
+                            <div class="col-sm-10">
+                                <select  @bind="user.userRole" class="form-select" id="userType"
+                                    aria-label="Default select example" aria-placeholder="@user.userRole">
+                                    <option disabled selected>@user.userRole</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Staff">Staff</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row" style="width: 500px;">
+                            <label for="gender" class="col-sm-12 col-form-label">Gender</label>
+                            <div class="col-sm-10">
+                                <select @bind="user.gender" class="form-select" id="gender" aria-label="Default select example">
+                                    <option  disabled selected>@user.gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" @onclick="OnUpdateStudent" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 60%;">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="col">FirstName</th>
+                            <td>@user.firstName</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Last Name</th>
+                            <td>@user.lastName</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Reference Number</th>
+                            <td>@user.referenceNumber</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Email</th>
+                            <td>@user.email</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Programme</th>
+                            <td>@user.programme</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Gender</th>
+                            <td>@user.gender</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">User Role</th>
+                            <td>@user.userRole</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="padding-top: 20px; display: flex; flex-direction: row; justify-content: space-evenly;">
+                    <button style="width: 48%;" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#updateUser">
+                        Edit User
+                    </button>
+                    <button style="width: 48%;" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteUser">
+                        Delete User
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {
+        <p><em>Loading Student Details...</em></p> <br>
+    }
+</div>
+
+@code {
+
+    [Parameter] public string? id { get; set; }
+    private StudentApiReponseDTO? user;
+
+    private string? AlertMessage;
+    private string? AlertType;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.GetStringAsync($"{UserEndpoints.GetUserByIdURL}/{id}");
+            user = JsonSerializer.Deserialize<StudentApiReponseDTO>(response);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Failed to load student details: {e.Message}");
+        }
+    }
+
+   private async Task OnUpdateStudent()
+    {
+        try
+        {
+            var content = new StringContent(
+                JsonSerializer.Serialize(user),
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            var response = await Http.PutAsync($"{UserEndpoints.UpdateUserURL}/{id}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                AlertMessage = $"Profile updated successfully";
+                AlertType = "success";
+                await JSRuntime.InvokeVoidAsync("dismissModal", "#updateUser");
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: false);
+            }
+            else
+            {
+                Console.WriteLine($"Update failed. Status code: {response.StatusCode}");
+                AlertMessage = $"Update failed. Status code: {response.StatusCode}";
+                AlertType = "danger";
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
+    private async void onDeleteUser()
+    {
+        try
+        {
+            var response = await Http.DeleteAsync($"{UserEndpoints.DeleteUserURL}/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                AlertMessage = $"User deleted successfully";
+                AlertType = "danger";
+                await JSRuntime.InvokeVoidAsync("dismissModal", "#deleteUser");
+                NavigationManager.NavigateTo("/users");
+            }
+            else
+            {
+                Console.WriteLine("Error deleting user: " + response.ReasonPhrase);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error deleting user: {e.Message}");
+        }
+    }
+
+}

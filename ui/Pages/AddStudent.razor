@@ -1,0 +1,104 @@
+﻿@page "/add"
+@inherits AuthenticatedComponentBase
+@attribute [Authorize]
+
+<PageTitle>Create New Student</PageTitle>
+
+<Alert Message="@AlertMessage" AlertType="@AlertType" />
+
+<h3 style="text-align: center;">Add New Student</h3>
+
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+    <div class="mb-3 row" style="width: 500px;">
+        <label for="firstName" class="col-sm-12 col-form-label">First Name</label>
+        <div class="col-sm-10">
+            <input type="text" @bind="user!.FirstName" class="form-control" id="firstName">
+        </div>
+    </div>
+
+    <div class="mb-3 row" style="width: 500px;">
+        <label for="lastName" class="col-sm-12 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+            <input type="text" @bind="user.LastName" class="form-control" id="lastName">
+        </div>
+    </div>
+
+    <div class="mb-3 row" style="width: 500px;">
+        <label for="programme" class="col-sm-12 col-form-label">Programme</label>
+        <div class="col-sm-10">
+            <input type="text" @bind="user.Programme" class="form-control" id="programme">
+        </div>
+    </div>
+
+    <div class="mb-3 row" style="width: 500px;">
+        <label for="userType" class="col-sm-12 col-form-label">User Role</label>
+        <div class="col-sm-10">
+            <select @bind="user.UserRole" class="form-select" id="userType" aria-label="Default select example">
+                <option value="" disabled selected>Select a user type</option>
+                <option value="Student">Student</option>
+                <option value="Staff">Staff</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3 row" style="width: 500px;">
+        <label for="gender" class="col-sm-12 col-form-label">Gender</label>
+        <div class="col-sm-10">
+            <select @bind="user.Gender" class="form-select" id="gender" aria-label="Default select example">
+                <option value="" disabled selected>Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3 row" style="width: 500px;">
+        <div class="col-sm-10">
+            <button style="width: 400px;" @onclick="OnAddStudent" type="button" class="btn btn-success">Add Student</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private User user = new User
+    { 
+        FirstName = string.Empty, 
+        LastName = string.Empty 
+    };
+    private string? AlertMessage;
+
+    private string? AlertType;
+
+    private async Task OnAddStudent()
+    {
+        try
+        {
+            var json = JsonSerializer.Serialize(user);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await Http.PostAsync(UserEndpoints.NewUserURL, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                AlertMessage = $"Student added successfully";
+                AlertType = "success";
+                NavigationManager!.NavigateTo("/users");
+            }
+            else
+            {
+                AlertMessage = $"Update failed. Status code: {response.StatusCode}";
+                AlertType = "danger";
+                Console.WriteLine($"Error adding student: {response.ReasonPhrase}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error creating new user: {e.Message}");
+        }
+    }
+
+
+}
